@@ -1,0 +1,39 @@
+#include <Servo.h>
+
+Servo topServo;
+Servo botServo;
+
+int userInputPin = 2;
+int userInputState = 0;
+
+void setup() {
+
+Serial.begin(9600); 
+topServo.attach(6);
+botServo.attach(5);
+pinMode(userInputPin, INPUT); //capacitive sensor
+
+}
+
+void loop() {
+
+userInputState = digitalRead(userInputPin);
+
+if (userInputState == HIGH) {
+  Serial.println("input == HIGH");
+  botServo.write(120); //servo values will need to be adjusted
+  delay(500);
+  botServo.write(85);
+  delay(500);
+  topServo.write(53);
+  delay(500);
+  topServo.write(88);
+  delay(500);
+}
+
+else {
+  Serial.println("input == LOW");
+  botServo.write(85);
+  topServo.write(88);
+}
+}
